@@ -14,3 +14,4 @@ https://github.com/TryCatchLearn/Skinet3.1
 
 - 1️⃣ yarn run typeorm migration:generate -n initial-schema -o
 - 2️⃣ yarn typeorm migration:run
+- :three: yarn typeorm migration:revert
