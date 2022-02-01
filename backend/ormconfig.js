@@ -16,6 +16,7 @@ switch (process.env.NODE_ENV) {
       username: 'root',
       password: '123456',
       entities: ['**/*.entity.js'],
+      migrationsRun: true,
     });
     break;
   case 'test':
