@@ -1,7 +1,4 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
 
 @Controller('products')
@@ -10,7 +7,6 @@ export class ProductController {
 
   @Get()
   getAll() {
-    console.log('hello');
     return this.productRepository.getProducts();
   }
 
