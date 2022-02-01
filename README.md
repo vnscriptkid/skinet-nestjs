@@ -9,3 +9,8 @@ If you are looking for the repository for the version of this app created on .Ne
 https://github.com/TryCatchLearn/Skinet3.1
 
 ## nestjs
+
+## migrations
+
+- 1️⃣ yarn run typeorm migration:generate -n initial-schema -o
+- 2️⃣ yarn typeorm migration:run
