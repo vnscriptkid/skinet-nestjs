@@ -10,6 +10,8 @@ https://github.com/TryCatchLearn/Skinet3.1
 
 ## nestjs
 
+- ref: https://jideowosakin.com/unit-of-work-pattern-in-typescript/
+
 ## migrations
 
 - 1️⃣ yarn run typeorm migration:generate -n initial-schema -o
