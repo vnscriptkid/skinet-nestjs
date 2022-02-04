@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductRepository } from './product.repository';
 import { Repository } from 'typeorm';
 import { ProductType } from './entities/product-type.entity';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { ProductDto } from './dtos/product.dto';
 
 @Controller('products')
 export class ProductController {
@@ -15,6 +17,7 @@ export class ProductController {
     private readonly productTypeRepository: Repository<ProductType>,
   ) {}
 
+  @Serialize(ProductDto)
   @Get()
   getAllProducts() {
     return this.productRepository.getProducts();
@@ -30,6 +33,7 @@ export class ProductController {
     return this.productTypeRepository.find();
   }
 
+  @Serialize(ProductDto)
   @Get(':id')
   getOneProduct(@Param('id') id: number) {
     return this.productRepository.getProductById(id);
