@@ -1,3 +1,5 @@
+var strategy = require('typeorm-naming-strategies');
+
 var dbConfig = {
   synchronize: false,
   migrations: ['migrations/*.js'],
@@ -18,6 +20,7 @@ switch (process.env.NODE_ENV) {
       entities: ['**/*.entity.js'],
       migrationsRun: true,
       synchronize: true,
+      namingStrategy: new strategy.SnakeNamingStrategy(),
     });
     break;
   case 'test':
