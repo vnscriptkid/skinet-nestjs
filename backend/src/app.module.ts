@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Product } from './product/entities/product.entity';
 import { ProductModule } from './product/product.module';
 
 @Module({
@@ -12,7 +13,9 @@ import { ProductModule } from './product/product.module';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     ProductModule,
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      entities: [Product],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
