@@ -11,10 +11,12 @@ export class ProductRepository
   extends Repository<Product>
   implements IProductRepository
 {
-  getProductById(id: number): Promise<Product> {
-    return this.findOne(id);
+  getProductById(id: number) {
+    return this.findOne(id, {
+      relations: ['type', 'brand'],
+    });
   }
   getProducts(): Promise<Product[]> {
-    return this.find();
+    return this.find({ relations: ['type', 'brand'] });
   }
 }
