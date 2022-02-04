@@ -10,6 +10,7 @@ export class ProductDto {
   @Expose()
   price: number;
 
+  @Transform(({ obj }) => `${process.env.API_URL}/${obj.pictureUrl}`)
   @Expose()
   pictureUrl: string;
 

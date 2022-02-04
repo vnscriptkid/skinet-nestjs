@@ -21,13 +21,15 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
-    "typeorm": "cross-env NODE_ENV=development node --require ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "cross-env NODE_ENV=development node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "copy:public": "cp -rv public/ dist/public"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/serve-static": "^2.2.2",
     "@nestjs/typeorm": "^8.0.3",
     "class-transformer": "^0.5.1",
     "mysql": "^2.18.1",
