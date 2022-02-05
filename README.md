@@ -17,3 +17,19 @@ https://github.com/TryCatchLearn/Skinet3.1
 - 1️⃣ yarn run typeorm migration:generate -n initial-schema -o
 - 2️⃣ yarn typeorm migration:run
 - :three: yarn typeorm migration:revert
+
+## error handling
+
+- consistent way of handling errors between all endpoints
+- define types of errors:
+  - 300 range: redirect
+  - 400 range: client error
+  - 500 range: server error
+
+```json
+{
+  "message": "describe error",
+  "statusCode": "400 | 401 | 403 | 422 | 500",
+  "errors": ["validation error 1", "validation error 2"]
+}
+```
