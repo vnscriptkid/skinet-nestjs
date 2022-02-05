@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Product } from './product/entities/product.entity';
 import { ProductModule } from './product/product.module';
+import { BuggyModule } from './buggy/buggy.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ProductModule } from './product/product.module';
     TypeOrmModule.forRoot({
       entities: [Product],
     }),
+    BuggyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
