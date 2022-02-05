@@ -6,8 +6,10 @@ import {
   NotFoundException,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateProductDto } from 'src/product/dtos/create-product.dto';
 
+@ApiTags('buggy')
 @Controller('buggy')
 export class BuggyController {
   @Get('notfound')

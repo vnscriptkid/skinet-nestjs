@@ -1,12 +1,20 @@
 import { ProductBrand } from './entities/product-brand.entity';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductRepository } from './product.repository';
 import { Repository } from 'typeorm';
 import { ProductType } from './entities/product-type.entity';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ProductDto } from './dtos/product.dto';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductController {
   constructor(
@@ -35,7 +43,13 @@ export class ProductController {
 
   @Serialize(ProductDto)
   @Get(':id')
-  getOneProduct(@Param('id') id: number) {
-    return this.productRepository.getProductById(id);
+  @ApiNotFoundResponse({ description: 'Not found.' })
+  @ApiOkResponse({ type: ProductDto })
+  async getOneProduct(@Param('id') id: number) {
+    const product = await this.productRepository.getProductById(id);
+
+    if (!product) throw new NotFoundException();
+
+    return product;
   }
 }
