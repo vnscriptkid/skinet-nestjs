@@ -20,6 +20,7 @@ import {
   getSchemaPath,
 } from '@nestjs/swagger';
 import { ListProductsDto } from './dtos/list-products.dto';
+import { Product } from './entities/product.entity';
 
 @ApiTags('products')
 @Controller('products')
@@ -32,7 +33,7 @@ export class ProductController {
     private readonly productTypeRepository: Repository<ProductType>,
   ) {}
 
-  @Serialize(ProductDto)
+  @Serialize(new Map([[Product, ProductDto]])) // Product to ProductDto
   @Get()
   async getAllProducts(@Query() criteria: ListProductsDto) {
     const products = await this.productRepository.getProducts(criteria);
