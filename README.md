@@ -33,3 +33,13 @@ https://github.com/TryCatchLearn/Skinet3.1
   "errors": ["validation error 1", "validation error 2"]
 }
 ```
+
+## api features
+
+- ref:
+  - https://softwareengineering.stackexchange.com/questions/233164/how-do-searches-fit-into-a-restful-interface
+- lib:
+  - https://github.com/ppetzold/nestjs-paginate
+
+1. sorting: field, asc || desc
+2. filtering: by type, by brand
