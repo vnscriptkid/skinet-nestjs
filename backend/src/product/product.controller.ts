@@ -1,5 +1,11 @@
 import { ProductBrand } from './entities/product-brand.entity';
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Query,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductRepository } from './product.repository';
 import { Repository } from 'typeorm';
@@ -13,6 +19,7 @@ import {
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger';
+import { ListProductsDto } from './dtos/list-products.dto';
 
 @ApiTags('products')
 @Controller('products')
@@ -27,8 +34,10 @@ export class ProductController {
 
   @Serialize(ProductDto)
   @Get()
-  getAllProducts() {
-    return this.productRepository.getProducts();
+  async getAllProducts(@Query() criteria: ListProductsDto) {
+    const products = await this.productRepository.getProducts(criteria);
+
+    return products;
   }
 
   @Get('brands')

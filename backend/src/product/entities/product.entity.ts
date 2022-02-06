@@ -11,7 +11,17 @@ export class Product extends BaseEntity {
   @Column()
   description: string;
 
-  @Column({ type: 'decimal' })
+  @Column({
+    type: 'decimal',
+    transformer: {
+      to(value) {
+        return value;
+      },
+      from(value) {
+        return parseFloat(value);
+      },
+    },
+  })
   price: number;
 
   @Column()

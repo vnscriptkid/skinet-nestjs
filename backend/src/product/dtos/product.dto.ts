@@ -4,6 +4,10 @@ import { Expose, Transform } from 'class-transformer';
 export class ProductDto {
   @ApiProperty()
   @Expose()
+  id: number;
+
+  @ApiProperty()
+  @Expose()
   name: string;
 
   @ApiProperty()

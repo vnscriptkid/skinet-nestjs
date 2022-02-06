@@ -1,4 +1,5 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, FindManyOptions, Repository } from 'typeorm';
+import { ListProductsDto } from './dtos/list-products.dto';
 import { Product } from './entities/product.entity';
 
 export interface IProductRepository {
@@ -16,7 +17,28 @@ export class ProductRepository
       relations: ['type', 'brand'],
     });
   }
-  getProducts(): Promise<Product[]> {
-    return this.find({ relations: ['type', 'brand'] });
+  getProducts(criteria?: ListProductsDto): Promise<Product[]> {
+    const opts: FindManyOptions<Product> = {};
+
+    if (criteria) {
+      // todo: sort by multiple fields
+      opts.order = { [criteria.orderBy]: criteria.direction };
+
+      opts.where = {};
+
+      if (criteria.brandId) {
+        Object.assign(opts.where, {
+          brand: criteria.brandId,
+        });
+      }
+
+      if (criteria.typeId) {
+        Object.assign(opts.where, {
+          type: criteria.typeId,
+        });
+      }
+    }
+
+    return this.find({ relations: ['type', 'brand'], ...opts });
   }
 }
