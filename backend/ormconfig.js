@@ -19,7 +19,7 @@ switch (process.env.NODE_ENV) {
       password: '123456',
       entities: ['**/*.entity.js'],
       // migrationsRun: true,
-      // synchronize: true,
+      synchronize: true,
       namingStrategy: new strategy.SnakeNamingStrategy(),
     });
     break;
