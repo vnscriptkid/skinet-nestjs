@@ -1,5 +1,5 @@
 import { PaginatedResult } from 'src/common/pagination';
-import { EntityRepository, FindManyOptions, Repository } from 'typeorm';
+import { EntityRepository, FindManyOptions, ILike, Repository } from 'typeorm';
 import { ListProductsDto } from './dtos/list-products.dto';
 import { Product } from './entities/product.entity';
 
@@ -38,6 +38,12 @@ export class ProductRepository
       if (criteria.typeId) {
         Object.assign(opts.where, {
           type: criteria.typeId,
+        });
+      }
+
+      if (criteria.search) {
+        Object.assign(opts.where, {
+          name: ILike(`%${criteria.search}%`), // case in-sensitive matching
         });
       }
 

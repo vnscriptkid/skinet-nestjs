@@ -1,5 +1,5 @@
 import { BaseEntity } from 'src/common/base.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { ProductBrand } from './product-brand.entity';
 import { ProductType } from './product-type.entity';
 
@@ -11,6 +11,7 @@ export class Product extends BaseEntity {
   @Column()
   description: string;
 
+  @Index()
   @Column({
     type: 'decimal',
     transformer: {

@@ -50,4 +50,9 @@ export class ListProductsDto extends PaginationParams {
   @IsOptional()
   @IsNumber()
   typeId: number;
+
+  @IsOptional()
+  @IsString()
+  @Transform(({ obj }) => obj.search.toLowerCase())
+  search: string;
 }
