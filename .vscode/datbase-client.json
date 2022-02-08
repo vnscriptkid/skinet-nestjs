@@ -1,0 +1,43 @@
+{
+    "nosql.connections": {
+        "1644339325165": {
+            "host": "127.0.0.1",
+            "dbPath": "",
+            "port": "6380",
+            "user": null,
+            "authType": "default",
+            "password": "",
+            "encoding": "utf8",
+            "clientKeyPath": null,
+            "clientCertPath": null,
+            "caPath": null,
+            "database": "0",
+            "useSSL": false,
+            "usingSSH": false,
+            "showHidden": false,
+            "includeDatabases": null,
+            "dbType": "Redis",
+            "encrypt": true,
+            "isCluster": false,
+            "connectionUrl": "",
+            "srv": false,
+            "esAuth": "none",
+            "global": false,
+            "key": "1644339325165",
+            "timezone": "+00:00",
+            "ssh": {
+                "host": "",
+                "privateKeyPath": "/Users/vnscriptkid/.ssh/id_rsa",
+                "port": 22,
+                "username": "root",
+                "type": "password",
+                "connectTimeout": 10000,
+                "algorithms": {
+                    "cipher": []
+                }
+            },
+            "name": "redis",
+            "connectionKey": "nosql.connections"
+        }
+    }
+}
