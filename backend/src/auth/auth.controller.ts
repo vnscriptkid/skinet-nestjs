@@ -1,8 +1,17 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
+import { RegisterUserDto } from './dtos/register-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +21,7 @@ export class AuthController {
   @UseGuards(AuthGuard('local')) // call validate() of LocalStrategy
   async login(@CurrentUser() user: User) {
     return {
-      user: user,
+      user,
       token: this.authService.getToken(user),
     };
   }
@@ -21,5 +30,15 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   async getCurrentUser(@CurrentUser() user: User) {
     return user;
+  }
+
+  @Post('register')
+  async register(@Body() registerUserDto: RegisterUserDto) {
+    const user = await this.authService.register(registerUserDto);
+
+    return {
+      user,
+      token: this.authService.getToken(user),
+    };
   }
 }

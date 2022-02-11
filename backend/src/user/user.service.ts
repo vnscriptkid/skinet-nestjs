@@ -16,4 +16,10 @@ export class UserService {
   findById(id: number) {
     return this.userRepository.findOne(id);
   }
+
+  create(data: Partial<User>) {
+    const user = this.userRepository.create(data);
+
+    return this.userRepository.save(user);
+  }
 }
