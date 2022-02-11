@@ -43,3 +43,6 @@ https://github.com/TryCatchLearn/Skinet3.1
 
 1. sorting: field, asc || desc
 2. filtering: by type, by brand
+3. searching
+
+- https://www.techiediaries.com/typeorm-fulltext-search/
