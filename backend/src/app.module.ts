@@ -1,6 +1,4 @@
-import type { RedisClientOptions } from 'redis';
-import * as redisStore from 'cache-manager-redis-store';
-import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,7 +8,7 @@ import { AppService } from './app.service';
 import { Product } from './product/entities/product.entity';
 import { ProductModule } from './product/product.module';
 import { BuggyModule } from './buggy/buggy.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { BasketModule } from './basket/basket.module';
 
 @Module({
   imports: [
@@ -34,6 +32,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       entities: [Product],
     }),
     BuggyModule,
+    BasketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
