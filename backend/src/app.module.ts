@@ -9,6 +9,8 @@ import { Product } from './product/entities/product.entity';
 import { ProductModule } from './product/product.module';
 import { BuggyModule } from './buggy/buggy.module';
 import { BasketModule } from './basket/basket.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { BasketModule } from './basket/basket.module';
     }),
     BuggyModule,
     BasketModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
