@@ -24,9 +24,7 @@ async function bootstrap() {
       exceptionFactory: (errors: ValidationError[]) => {
         return new HttpException(
           {
-            errors: errors
-              .map((e) => Object.values(e.constraints))
-              .reduce((a, i) => [...a, ...i], []),
+            errors: findErrors(errors),
             statusCode: 422,
             message: 'Validation errors',
           },
@@ -48,3 +46,26 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+function findErrors(obj: any) {
+  const errors: string[] = [];
+
+  function _findErrors(obj: any) {
+    if (typeof obj === 'object' && obj !== null) {
+      for (let key in obj) {
+        if (key === 'constraints') {
+          for (let e of Object.values(obj[key])) errors.push(e as string);
+        } else {
+          _findErrors(obj[key]);
+        }
+      }
+    }
+
+    // number, string, null, undefined, boolean
+    return obj;
+  }
+
+  _findErrors(obj);
+
+  return errors;
+}
