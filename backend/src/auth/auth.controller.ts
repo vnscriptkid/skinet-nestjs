@@ -1,3 +1,5 @@
+import { AuthGuardLocal } from './guards/auth-jwt.guard';
+import { AuthGuardJwt } from './guards/auth-local.guard';
 import {
   Body,
   Controller,
@@ -18,7 +20,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  @UseGuards(AuthGuard('local')) // call validate() of LocalStrategy
+  @UseGuards(AuthGuardLocal) // call validate() of LocalStrategy
   async login(@CurrentUser() user: User) {
     return {
       user,
@@ -27,7 +29,7 @@ export class AuthController {
   }
 
   @Get('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuardJwt)
   async getCurrentUser(@CurrentUser() user: User) {
     return user;
   }
