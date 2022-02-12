@@ -46,10 +46,11 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   controllers: [ProductController],
   providers: [
     ProductService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
+    /* TODO: fix, this will apply cache for all endpoints */
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor,
+    // },
   ],
 })
 export class ProductModule {}
