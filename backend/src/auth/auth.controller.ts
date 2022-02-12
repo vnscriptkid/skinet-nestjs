@@ -5,6 +5,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -17,7 +18,10 @@ import { RegisterUserDto } from './dtos/register-user.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post('login')
   @UseGuards(AuthGuardLocal) // call validate() of LocalStrategy
@@ -37,6 +41,13 @@ export class AuthController {
       displayName: user.displayName,
       token: this.authService.getToken(user),
     };
+  }
+
+  @Get('emailexists')
+  async checkEmailExists(@Query('email') email: string) {
+    const user = await this.userService.findByEmail(email);
+
+    return !!user;
   }
 
   @Post('register')
