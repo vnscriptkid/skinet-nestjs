@@ -13,7 +13,6 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToOne(() => Address)
-  @JoinColumn()
+  @OneToOne(() => Address, (address) => address.user)
   address: Address;
 }
