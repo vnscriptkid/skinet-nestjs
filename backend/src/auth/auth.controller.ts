@@ -32,7 +32,11 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuardJwt)
   async getCurrentUser(@CurrentUser() user: User) {
-    return user;
+    return {
+      email: user.email,
+      displayName: user.displayName,
+      token: this.authService.getToken(user),
+    };
   }
 
   @Post('register')
