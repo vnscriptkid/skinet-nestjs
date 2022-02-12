@@ -23,7 +23,8 @@ export class AuthController {
   @UseGuards(AuthGuardLocal) // call validate() of LocalStrategy
   async login(@CurrentUser() user: User) {
     return {
-      user,
+      email: user.email,
+      displayName: user.displayName,
       token: this.authService.getToken(user),
     };
   }
@@ -39,7 +40,8 @@ export class AuthController {
     const user = await this.authService.register(registerUserDto);
 
     return {
-      user,
+      email: user.email,
+      displayName: user.displayName,
       token: this.authService.getToken(user),
     };
   }
