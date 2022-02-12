@@ -50,6 +50,12 @@ export class AuthController {
     return !!user;
   }
 
+  @Get('address')
+  @UseGuards(AuthGuardJwt)
+  async getUserAddress(@CurrentUser() user: User) {
+    return (await this.userService.findAddress(user))?.address;
+  }
+
   @Post('register')
   async register(@Body() registerUserDto: RegisterUserDto) {
     const user = await this.authService.register(registerUserDto);

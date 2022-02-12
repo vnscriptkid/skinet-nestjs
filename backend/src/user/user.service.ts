@@ -22,4 +22,8 @@ export class UserService {
 
     return this.userRepository.save(user);
   }
+
+  findAddress(user: User) {
+    return this.userRepository.findOne(user, { relations: ['address'] });
+  }
 }
