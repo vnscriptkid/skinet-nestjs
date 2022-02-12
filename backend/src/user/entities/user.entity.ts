@@ -13,6 +13,8 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToOne(() => Address, (address) => address.user)
+  @OneToOne(() => Address, (address) => address.user, {
+    cascade: ['update', 'insert'], // save address through user
+  })
   address: Address;
 }

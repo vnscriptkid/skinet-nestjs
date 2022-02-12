@@ -5,6 +5,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -15,6 +16,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
 import { RegisterUserDto } from './dtos/register-user.dto';
+import { UpdateAddressDto } from './dtos/update-address.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -53,7 +55,16 @@ export class AuthController {
   @Get('address')
   @UseGuards(AuthGuardJwt)
   async getUserAddress(@CurrentUser() user: User) {
-    return (await this.userService.findAddress(user))?.address;
+    return (await this.userService.populateAddress(user)).address;
+  }
+
+  @Put('address')
+  @UseGuards(AuthGuardJwt)
+  async updateUserAddress(
+    @CurrentUser() user: User,
+    @Body() updateAddressDto: UpdateAddressDto,
+  ) {
+    return await this.userService.updateAddress(user, updateAddressDto);
   }
 
   @Post('register')

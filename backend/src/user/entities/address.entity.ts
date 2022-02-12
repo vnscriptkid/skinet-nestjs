@@ -23,7 +23,10 @@ export class Address extends BaseEntity {
   @Column()
   zipCode: string;
 
-  @OneToOne(() => User, { nullable: false, onDelete: 'CASCADE' }) // if delete user, then connected address also get deleted.
+  @OneToOne(() => User, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  }) // if delete user, then connected address also get deleted.
   @JoinColumn()
   user: User;
 }
