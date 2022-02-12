@@ -17,7 +17,9 @@ export class AuthService {
   getToken(user: User) {
     return this.jwtService.sign({
       email: user.email,
+      given_name: user.displayName,
       sub: user.id, // `sub` is conventional-naming
+      iss: process.env.API_URL,
     });
   }
 
