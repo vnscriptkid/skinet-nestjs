@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UserService } from 'src/user/user.service';
+import { ValidationError } from 'src/common/errors/ValidationError';
 
 @Injectable()
 export class AuthService {
@@ -35,10 +36,11 @@ export class AuthService {
       registerUserDto.email,
     );
 
-    if (existingUser)
-      throw new BadRequestException(
+    if (existingUser) {
+      throw new ValidationError([
         `Email '${registerUserDto.email}' already exists.`,
-      );
+      ]);
+    }
 
     const user = await this.userService.create({
       ...registerUserDto,
