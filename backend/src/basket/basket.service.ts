@@ -12,7 +12,7 @@ export class BasketService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   async getBasket(id: string) {
-    const basket = await this.cacheManager.get(id);
+    const basket = await this.cacheManager.get<Basket>(id);
 
     if (!basket) throw new NotFoundException();
 

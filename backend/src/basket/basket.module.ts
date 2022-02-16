@@ -16,5 +16,6 @@ import { BasketController } from './basket.controller';
   ],
   providers: [BasketService],
   controllers: [BasketController],
+  exports: [BasketService],
 })
 export class BasketModule {}

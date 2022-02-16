@@ -11,8 +11,22 @@ import { DeliveryMethod } from './delivery-method.entity';
 import { OrderItem } from './order-item.entity';
 import { OrderStatus } from './order-status';
 
+export interface ShippingAddress {
+  shipToFirstName: string;
+
+  shipToLastName: string;
+
+  shipToStreet: string;
+
+  shipToCity: string;
+
+  shipToState: string;
+
+  shipToZipCode: string;
+}
+
 @Entity('orders')
-export class Order extends BaseEntity {
+export class Order extends BaseEntity implements ShippingAddress {
   @Column()
   buyerEmail: string;
 

@@ -9,4 +9,7 @@ export class ProductService {
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
   ) {}
+  findByIds(ids: number[]) {
+    return this.productRepository.findByIds(ids);
+  }
 }

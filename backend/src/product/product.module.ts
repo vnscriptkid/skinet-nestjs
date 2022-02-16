@@ -52,5 +52,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     //   useClass: CacheInterceptor,
     // },
   ],
+  exports: [ProductService],
 })
 export class ProductModule {}
