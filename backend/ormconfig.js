@@ -17,7 +17,7 @@ switch (process.env.NODE_ENV) {
       port: 33067,
       username: 'root',
       password: '123456',
-      entities: ['**/*.entity.js'],
+      entities: [`**/*.entity.${process.env.DEBUG ? 'ts' : 'js'}`],
       // migrationsRun: true,
       synchronize: true,
       namingStrategy: new strategy.SnakeNamingStrategy(),
