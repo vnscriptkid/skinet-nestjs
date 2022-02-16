@@ -46,3 +46,4 @@ https://github.com/TryCatchLearn/Skinet3.1
 3. searching
 
 - https://www.techiediaries.com/typeorm-fulltext-search/
+- https://dotnetfalcon.com/using-the-specification-pattern-with-repository-and-unit-of-work/#
