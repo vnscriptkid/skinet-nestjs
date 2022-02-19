@@ -47,3 +47,8 @@ https://github.com/TryCatchLearn/Skinet3.1
 
 - https://www.techiediaries.com/typeorm-fulltext-search/
 - https://dotnetfalcon.com/using-the-specification-pattern-with-repository-and-unit-of-work/#
+
+## unit of work, transactions:
+
+- https://aaronboman.com/programming/2020/05/15/per-request-database-transactions-with-nestjs-and-typeorm/
+- https://jideowosakin.com/unit-of-work-pattern-in-typescript/
