@@ -42,7 +42,7 @@ export class Order extends BaseEntity implements ShippingAddress {
   @Column({ type: 'enum', default: OrderStatus.Pending, enum: OrderStatus })
   status: OrderStatus;
 
-  @Column()
+  @Column({ nullable: true })
   paymentIntentId: string;
 
   /* SHIP TO ADDRESS */
@@ -68,7 +68,9 @@ export class Order extends BaseEntity implements ShippingAddress {
   @ManyToOne(() => DeliveryMethod)
   deliveryMethod: DeliveryMethod;
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
+    cascade: ['update', 'insert'],
+  })
   orderItems: OrderItem[];
 
   /* UTILS METHODS */

@@ -19,6 +19,9 @@ export class OrderItem extends BaseEntity {
   @Column()
   quantity: number;
 
-  @ManyToOne(() => Order, { onDelete: 'CASCADE' }) // if deletes order, related orderItems get deleted as well.
+  @ManyToOne(() => Order, {
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+  }) // if deletes order, related orderItems get deleted as well.
   order: Order;
 }
