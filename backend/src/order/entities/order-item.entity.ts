@@ -1,5 +1,5 @@
 import { BaseEntity } from 'src/common/base.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { AfterLoad, Column, Entity, ManyToOne } from 'typeorm';
 import { Order } from './order.entity';
 
 @Entity('order_items')
@@ -24,4 +24,8 @@ export class OrderItem extends BaseEntity {
     cascade: ['insert', 'update'],
   }) // if deletes order, related orderItems get deleted as well.
   order: Order;
+
+  @AfterLoad() _convertNumerics() {
+    this.price = parseFloat(this.price as any);
+  }
 }

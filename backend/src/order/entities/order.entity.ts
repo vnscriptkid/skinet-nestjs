@@ -1,12 +1,5 @@
 import { BaseEntity } from 'src/common/base.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, AfterLoad } from 'typeorm';
 import { DeliveryMethod } from './delivery-method.entity';
 import { OrderItem } from './order-item.entity';
 import { OrderStatus } from './order-status';
@@ -74,7 +67,28 @@ export class Order extends BaseEntity implements ShippingAddress {
   orderItems: OrderItem[];
 
   /* UTILS METHODS */
-  get getTotal() {
+  get total() {
     return this.subTotal + this.deliveryMethod.price;
   }
+
+  @AfterLoad() _convertNumerics() {
+    this.subTotal = parseFloat(this.subTotal as any);
+  }
+
+  /* OTHER APPROACH
+  export class ColumnNumericTransformer {
+    to(data: number): number {
+      return data;
+    }
+    from(data: string): number {
+      return parseFloat(data);
+    }
+  }
+  @Column('numeric', {
+    precision: 7,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
+  public myNumericColumn: number;
+  */
 }

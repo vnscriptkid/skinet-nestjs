@@ -1,5 +1,5 @@
 import { BaseEntity } from 'src/common/base.entity';
-import { Column, Entity } from 'typeorm';
+import { AfterLoad, Column, Entity } from 'typeorm';
 
 @Entity('delivery_methods')
 export class DeliveryMethod extends BaseEntity {
@@ -14,4 +14,8 @@ export class DeliveryMethod extends BaseEntity {
 
   @Column({ type: 'decimal' })
   price: number;
+
+  @AfterLoad() _convertNumerics() {
+    this.price = parseFloat(this.price as any);
+  }
 }
