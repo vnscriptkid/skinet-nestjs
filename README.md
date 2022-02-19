@@ -52,3 +52,7 @@ https://github.com/TryCatchLearn/Skinet3.1
 
 - https://aaronboman.com/programming/2020/05/15/per-request-database-transactions-with-nestjs-and-typeorm/
 - https://jideowosakin.com/unit-of-work-pattern-in-typescript/
+
+## serialization
+
+- https://github.com/typestack/class-transformer
