@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { keyBy } from 'lodash';
 import { BasketService } from 'src/basket/basket.service';
 import { ProductService } from 'src/product/product.service';
-import { Repository } from 'typeorm';
+import { Repository, Connection } from 'typeorm';
 import { DeliveryMethod } from './entities/delivery-method.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { Order, ShippingAddress } from './entities/order.entity';
@@ -20,6 +20,7 @@ export class OrderService {
 
     private readonly basketService: BasketService,
     private readonly productService: ProductService,
+    private readonly connection: Connection,
   ) {}
 
   async createOrder(
@@ -28,6 +29,11 @@ export class OrderService {
     basketId: string,
     shippingAddress: ShippingAddress,
   ) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     const basket = await this.basketService.getBasket(basketId);
 
     const products = await this.productService.findByIds(
@@ -39,7 +45,7 @@ export class OrderService {
     const orderItemsList: OrderItem[] = [];
 
     for (let basketItem of basket.items) {
-      const orderItem = this.orderItemRepository.create({
+      const orderItem = queryRunner.manager.create(OrderItem, {
         productItemId: basketItem.id,
         productName: basketItem.productName,
         pictureUrl: basketItem.pictureUrl,
@@ -59,7 +65,7 @@ export class OrderService {
       0,
     );
 
-    const order = this.orderRepository.create({
+    const order = queryRunner.manager.create(Order, {
       buyerEmail,
       ...shippingAddress,
       deliveryMethod,
@@ -68,9 +74,19 @@ export class OrderService {
 
     order.orderItems = orderItemsList;
 
-    // TODO: save order
+    try {
+      const newOrder = await queryRunner.manager.save(order);
 
-    return order;
+      await queryRunner.commitTransaction();
+
+      return newOrder;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+
+      throw new InternalServerErrorException(`Failed to create new order.`);
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async getOrdersForUser(buyerEmail: string) {}
