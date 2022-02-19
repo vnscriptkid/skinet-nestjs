@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { keyBy } from 'lodash';
 import { BasketService } from 'src/basket/basket.service';
@@ -89,9 +93,34 @@ export class OrderService {
     }
   }
 
-  async getOrdersForUser(buyerEmail: string) {}
+  getOrdersForUser(buyerEmail: string) {
+    return this.orderRepository
+      .createQueryBuilder('o')
+      .leftJoinAndSelect('o.orderItems', 'orderItems')
+      .leftJoinAndSelect('o.deliveryMethod', 'deliveryMethod')
+      .where('o.buyerEmail = :buyerEmail', { buyerEmail })
+      .getMany();
+  }
 
-  async getOrderById(id: number, buyerEmail: string) {}
+  getOrderById(id: number, buyerEmail: string) {
+    return this.orderRepository
+      .createQueryBuilder('o')
+      .leftJoinAndSelect('o.orderItems', 'orderItems')
+      .leftJoinAndSelect('o.deliveryMethod', 'deliveryMethod')
+      .where('o.id = :id', { id })
+      .andWhere('o.buyerEmail = :buyerEmail', { buyerEmail })
+      .getOne();
+  }
 
-  async getDeliveryMethods() {}
+  async getOrderByIdAndThrow(id: number, buyerEmail: string) {
+    const order = await this.getOrderById(id, buyerEmail);
+
+    if (!order) throw new NotFoundException();
+
+    return order;
+  }
+
+  getDeliveryMethods() {
+    return this.deliveryMethodRepository.find();
+  }
 }
