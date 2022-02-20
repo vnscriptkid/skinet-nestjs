@@ -1,7 +1,17 @@
+import { AuthGuardJwt } from './../auth/guards/auth-local.guard';
 import { UpdateBasketDto } from './dtos/update-basket.dto';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { BasketService } from './basket.service';
 
+@UseGuards(AuthGuardJwt)
 @Controller('basket')
 export class BasketController {
   constructor(private readonly basketService: BasketService) {}
