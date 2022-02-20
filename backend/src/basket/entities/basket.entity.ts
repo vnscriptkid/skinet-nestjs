@@ -5,6 +5,12 @@ export class Basket {
 
   items: BasketItem[];
 
+  deliveryMethodId?: string;
+
+  clientSecret: string;
+
+  paymentIntentId: string;
+
   constructor(id: string) {
     this.id = id;
     this.items = [];
