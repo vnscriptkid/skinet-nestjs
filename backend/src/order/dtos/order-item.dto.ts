@@ -9,6 +9,7 @@ export class OrderItemDto {
   productName: string;
 
   @Expose()
+  @Transform(({ obj }) => `${process.env.API_URL}/${obj.pictureUrl}`)
   pictureUrl: string;
 
   @Expose()

@@ -41,4 +41,8 @@ export class OrderDto {
   @Expose()
   @Type(() => OrderItemDto)
   orderItems: OrderItemDto[];
+
+  @Expose()
+  @Transform(({ obj }) => obj.deliveryMethod.price)
+  shippingPrice: number;
 }
