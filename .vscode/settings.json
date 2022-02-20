@@ -29,7 +29,8 @@
   },
   "rest-client.environmentVariables": {
     "$shared": {
-      "url": "http://localhost:3000/api"
+      "url": "http://localhost:3000/api",
+      "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW5oQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJTb21lb25lIiwic3ViIjo2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJpYXQiOjE2NDUzNjA1NzAsImV4cCI6MTY0NTQ0Njk3MH0.Xj65y9nUEX5rU8W_nCzohdvI8-6QMNs87UcT4LrDQqI"
     }
   }
 }
